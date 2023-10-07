@@ -1,12 +1,15 @@
 .strength-container {
+    position: relative;
+    top: 1.5rem;
+
     display: flex;
     flex-direction: row;
     gap: 16px;
     justify-content: center;
 
     .strength-level {
-        width: calc( (32rem - 40px) / 3);
-        height: 1rem;
+        width: 12rem;
+        height: 0.6rem;
         border: 2px solid black;
         border-radius: 1rem;
     }
