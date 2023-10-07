@@ -8,9 +8,9 @@ describe('StrengthFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StrengthFieldComponent ]
+      declarations: [StrengthFieldComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(StrengthFieldComponent);
     component = fixture.componentInstance;

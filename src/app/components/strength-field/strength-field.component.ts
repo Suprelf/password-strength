@@ -17,5 +17,5 @@ export class StrengthFieldComponent implements OnInit {
     console.log(changes['strength'].currentValue)
     this.strength = changes['strength'].currentValue
   }
-  
+
 }

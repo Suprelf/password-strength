@@ -37,39 +37,38 @@ export class PasswordFieldComponent implements OnInit {
 
       this.strongPasswords.some((regex) => {
         if ((password?.match(regex)) && (password != '')) {
-          this.passwordFormControl.setErrors({'strong': true })
+          this.passwordFormControl.setErrors({ 'strong': true })
           this.strengthLvl = 3
-        } else if (password != ''){
-          this.passwordFormControl.setErrors({'spaces': true })
+        } else if (password != '') {
+          this.passwordFormControl.setErrors({ 'spaces': true })
           this.strengthLvl = -1
         }
       })
 
       this.mediumPasswords.some((regex) => {
         if ((password?.match(regex)) && (password != '')) {
-          this.passwordFormControl.setErrors({'medium': true })
+          this.passwordFormControl.setErrors({ 'medium': true })
           this.strengthLvl = 2
         }
       })
 
       this.easyPasswords.some((regex) => {
         if ((password?.match(regex)) && (password != '')) {
-          this.passwordFormControl.setErrors({'easy': true })
+          this.passwordFormControl.setErrors({ 'easy': true })
           this.strengthLvl = 1
         }
       })
 
       this.shortPasswords.some((regex) => {
         if (!(password?.match(regex)) && (password != '')) {
-          this.passwordFormControl.setErrors({'short': true })
+          this.passwordFormControl.setErrors({ 'short': true })
           this.strengthLvl = -1
         }
       })
 
       if (password == '') {
         this.strengthLvl = 0
-      }    
-
+      }
 
     })
   }
