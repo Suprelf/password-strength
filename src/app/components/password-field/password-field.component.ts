@@ -23,12 +23,12 @@ export class PasswordFieldComponent implements OnInit {
   easyPasswords = [
     RegExp(/^[A-Za-zа-яА-Я]*$/gm),
     RegExp(/^[0-9]*$/gm),
-    RegExp(/^[$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm)]
+    RegExp(/^[$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm)]
   mediumPasswords = [
-    RegExp(/^[A-Za-zа-яА-Я$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm),
-    RegExp(/^[0-9$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm),
+    RegExp(/^[A-Za-zа-яА-Я$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm),
+    RegExp(/^[0-9$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm),
     RegExp(/^[A-Za-z0-9а-яА-Я]*$/gm)]
-  strongPasswords = [RegExp(/^[A-Za-z0-9а-яА-Я$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm)]
+  strongPasswords = [RegExp(/^[A-Za-z0-9а-яА-Я$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm)]
   shortPasswords = [RegExp(/^.{8,}$/)]
 
   constructor() {
@@ -39,6 +39,9 @@ export class PasswordFieldComponent implements OnInit {
         if ((password?.match(regex)) && (password != '')) {
           this.passwordFormControl.setErrors({'strong': true })
           this.strengthLvl = 3
+        } else if (password != ''){
+          this.passwordFormControl.setErrors({'spaces': true })
+          this.strengthLvl = -1
         }
       })
 
@@ -66,6 +69,7 @@ export class PasswordFieldComponent implements OnInit {
       if (password == '') {
         this.strengthLvl = 0
       }    
+
 
     })
   }
