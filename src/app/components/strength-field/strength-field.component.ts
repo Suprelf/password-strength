@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-strength-field',
@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./strength-field.component.scss']
 })
 export class StrengthFieldComponent implements OnInit {
+  @Input() strength: Number | undefined;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes['strength'].currentValue)
+    this.strength = changes['strength'].currentValue
+  }
+  
 }

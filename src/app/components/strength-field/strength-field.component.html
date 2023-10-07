@@ -1,5 +1,11 @@
-<div class="strength-container">
-    <div class="strength-level" id="1"></div>
-    <div class="strength-level" id="2"></div>
-    <div class="strength-level" id="3"></div>
-</div> 
+<div class="strength-container" 
+    [ngClass]="{'strong': (strength == 3), 
+                'medium': (strength == 2),
+                'easy': (strength == 1), 
+                'empty': (strength == 0),
+                'short': (strength == -1)}">
+
+    <div id="first" class="strength-level"></div>
+    <div id="second" class="strength-level"></div>
+    <div id="third" class="strength-level"></div>
+</div>

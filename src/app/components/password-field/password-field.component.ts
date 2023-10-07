@@ -18,49 +18,54 @@ export class PasswordFieldComponent implements OnInit {
 
   passwordFormControl = new FormControl('', [Validators.required]);
   customMatcher = new CustomErrorStateMatcher();
-  strengthLvl = '';
-  
+  strengthLvl = 0;
+
   easyPasswords = [
-    RegExp(/^[A-Za-zа-яА-Я]*$/gm), 
-    RegExp(/^[0-9]*$/gm), 
+    RegExp(/^[A-Za-zа-яА-Я]*$/gm),
+    RegExp(/^[0-9]*$/gm),
     RegExp(/^[$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm)]
   mediumPasswords = [
-    RegExp(/^[A-Za-zа-яА-Я$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm), 
-    RegExp(/^[0-9$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm), 
+    RegExp(/^[A-Za-zа-яА-Я$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm),
+    RegExp(/^[0-9$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm),
     RegExp(/^[A-Za-z0-9а-яА-Я]*$/gm)]
   strongPasswords = [RegExp(/^[A-Za-z0-9а-яА-Я$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm)]
+  shortPasswords = [RegExp(/^.{8,}$/)]
 
   constructor() {
-    this.passwordFormControl.valueChanges.subscribe(()=>{
+    this.passwordFormControl.valueChanges.subscribe(() => {
       const password = this.passwordFormControl.value
 
       this.strongPasswords.some((regex) => {
-        if ((password?.match(regex)) && (password!='') ) {
-          this.passwordFormControl.setErrors({'strong': true})
-          console.log(this.strengthLvl)
+        if ((password?.match(regex)) && (password != '')) {
+          this.passwordFormControl.setErrors({'strong': true })
+          this.strengthLvl = 3
         }
       })
 
       this.mediumPasswords.some((regex) => {
-        if ((password?.match(regex)) && (password!='') ) {
-          this.passwordFormControl.setErrors({'medium': true})
-          console.log(this.strengthLvl)
-        }
-      })
-      
-      this.easyPasswords.some((regex) => {
-        if ((password?.match(regex)) && (password!='') ) {
-          this.passwordFormControl.setErrors({'easy': true})
-          console.log(this.strengthLvl)
+        if ((password?.match(regex)) && (password != '')) {
+          this.passwordFormControl.setErrors({'medium': true })
+          this.strengthLvl = 2
         }
       })
 
-      this.strongPasswords.some((regex) => {
-        if ( !(password?.match(regex)) && (password!='') ) {
-          this.passwordFormControl.setErrors({'else': true})
-          console.log(this.strengthLvl)
+      this.easyPasswords.some((regex) => {
+        if ((password?.match(regex)) && (password != '')) {
+          this.passwordFormControl.setErrors({'easy': true })
+          this.strengthLvl = 1
         }
       })
+
+      this.shortPasswords.some((regex) => {
+        if (!(password?.match(regex)) && (password != '')) {
+          this.passwordFormControl.setErrors({'short': true })
+          this.strengthLvl = -1
+        }
+      })
+
+      if (password == '') {
+        this.strengthLvl = 0
+      }    
 
     })
   }

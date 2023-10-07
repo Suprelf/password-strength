@@ -10,7 +10,57 @@
     .strength-level {
         width: 12rem;
         height: 0.6rem;
-        border: 2px solid black;
         border-radius: 1rem;
     }
+
 }
+
+.easy {
+    #first {
+        background-color: red;
+    }
+
+    #second,
+    #third {
+        background-color: gray;
+    }
+}
+
+.medium {
+
+    #first,
+    #second {
+        background-color: yellow;
+    }
+
+    #third {
+        background-color: gray;
+    }
+}
+
+.strong {
+
+    #first,
+    #second,
+    #third {
+        background-color: green;
+    }
+}
+.short {
+
+    #first,
+    #second,
+    #third {
+        background-color: red;
+    }
+}
+
+.empty {
+
+    #first,
+    #second,
+    #third {
+        background-color: gray;
+    }
+}
+
