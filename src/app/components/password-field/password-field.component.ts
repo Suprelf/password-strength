@@ -18,15 +18,17 @@ export class PasswordFieldComponent implements OnInit {
 
   passwordFormControl = new FormControl('', [Validators.required]);
   customMatcher = new CustomErrorStateMatcher();
-  strengthLvl = 'none';
+  strengthLvl = '';
   
-  easyPasswords = [RegExp(/^[A-Za-z]*$/gm), RegExp(/^[0-9]*$/gm), RegExp(/^[$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm)]
-  mediumPasswords = [RegExp(/^[\p{P}\p{S}A-Za-z]*$/gm), RegExp(/^[\p{P}\p{S}0-9]*$/gm), RegExp(/^[A-Za-z0-9]*$/gm)]
-  strongPasswords = [RegExp(/^[\p{P}\p{S}A-Za-z0-9]*$/gm)]
-
-
-
-
+  easyPasswords = [
+    RegExp(/^[A-Za-zа-яА-Я]*$/gm), 
+    RegExp(/^[0-9]*$/gm), 
+    RegExp(/^[$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm)]
+  mediumPasswords = [
+    RegExp(/^[A-Za-zа-яА-Я$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm), 
+    RegExp(/^[0-9$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm), 
+    RegExp(/^[A-Za-z0-9а-яА-Я]*$/gm)]
+  strongPasswords = [RegExp(/^[A-Za-z0-9а-яА-Я$&+,:;=?@#|\\/'<>.^*()%!_-]*$/gm)]
 
   constructor() {
     this.passwordFormControl.valueChanges.subscribe(()=>{
@@ -34,33 +36,37 @@ export class PasswordFieldComponent implements OnInit {
 
       this.strongPasswords.some((regex) => {
         if ((password?.match(regex)) && (password!='') ) {
-          this.strengthLvl = 'strong'
+          this.passwordFormControl.setErrors({'strong': true})
           console.log(this.strengthLvl)
         }
       })
 
       this.mediumPasswords.some((regex) => {
         if ((password?.match(regex)) && (password!='') ) {
-          this.strengthLvl = 'medium'
+          this.passwordFormControl.setErrors({'medium': true})
           console.log(this.strengthLvl)
         }
       })
       
       this.easyPasswords.some((regex) => {
         if ((password?.match(regex)) && (password!='') ) {
-          this.strengthLvl = 'easy'
+          this.passwordFormControl.setErrors({'easy': true})
           console.log(this.strengthLvl)
         }
       })
+
+      this.strongPasswords.some((regex) => {
+        if ( !(password?.match(regex)) && (password!='') ) {
+          this.passwordFormControl.setErrors({'else': true})
+          console.log(this.strengthLvl)
+        }
+      })
+
     })
   }
 
   ngOnInit(): void {
   }
-
-  
-
-  
 
 
 }
