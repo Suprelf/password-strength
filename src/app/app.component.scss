@@ -1,9 +1,15 @@
-.app-container {
-    width: 100%;
-    height: 100%;
-    
+.app-container { 
+    width: 100vw;
+    height: 100vh;
+
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    .password-field {
+        margin: 20%;
+        width: 100%;
+        font-size: 1.3rem;
+    }
 }

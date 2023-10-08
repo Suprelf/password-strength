@@ -1,3 +1,4 @@
+import { keyframes } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -20,23 +21,37 @@ export class PasswordFieldComponent implements OnInit {
   customMatcher = new CustomErrorStateMatcher();
   strengthLvl = 0;
 
-  easyPasswords = [
-    RegExp(/^[A-Za-zа-яА-Я]*$/gm),
-    RegExp(/^[0-9]*$/gm),
-    RegExp(/^[$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm)]
-  mediumPasswords = [
-    RegExp(/^[A-Za-zа-яА-Я$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm),
-    RegExp(/^[0-9$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm),
-    RegExp(/^[A-Za-z0-9а-яА-Я]*$/gm)]
-  strongPasswords = [RegExp(/^[A-Za-z0-9а-яА-Я$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm)]
-  shortPasswords = [RegExp(/^.{8,}$/)]
+  AllRegEx = {
+    easyPasswords: {
+      regex: [
+        RegExp(/^[A-Za-zа-яА-Я]*$/gm),
+        RegExp(/^[0-9]*$/gm),
+        RegExp(/^[$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm)],
+      lvl: 1
+    },
+    mediumPasswords: {
+      regex: [
+        RegExp(/^[A-Za-zа-яА-Я$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm),
+        RegExp(/^[0-9$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm),
+        RegExp(/^[A-Za-z0-9а-яА-Я]*$/gm)],
+      lvl: 2
+    },
+    strongPasswords: { 
+      regex: [RegExp(/^[A-Za-z0-9а-яА-Я$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm)], 
+      lvl: 3 
+    },
+    shortPasswords:{ 
+      regex:[RegExp(/^.{8,}$/)],
+      lvl: -1
+    }
+  }
 
   constructor() {
     this.passwordFormControl.valueChanges.subscribe(() => {
       const password = this.passwordFormControl.value
 
-      this.strongPasswords.some((regex) => {
-        if ((password?.match(regex)) && (password != '')) {
+      this.AllRegEx.strongPasswords.regex.some((pattern) => {
+        if ((password?.match(pattern)) && (password != '')) {
           this.passwordFormControl.setErrors({ 'strong': true })
           this.strengthLvl = 3
         } else if (password != '') {
@@ -45,22 +60,22 @@ export class PasswordFieldComponent implements OnInit {
         }
       })
 
-      this.mediumPasswords.some((regex) => {
-        if ((password?.match(regex)) && (password != '')) {
+      this.AllRegEx.mediumPasswords.regex.some((pattern) => {
+        if ((password?.match(pattern)) && (password != '')) {
           this.passwordFormControl.setErrors({ 'medium': true })
           this.strengthLvl = 2
         }
       })
 
-      this.easyPasswords.some((regex) => {
-        if ((password?.match(regex)) && (password != '')) {
+      this.AllRegEx.easyPasswords.regex.some((pattern) => {
+        if ((password?.match(pattern)) && (password != '')) {
           this.passwordFormControl.setErrors({ 'easy': true })
           this.strengthLvl = 1
         }
       })
 
-      this.shortPasswords.some((regex) => {
-        if (!(password?.match(regex)) && (password != '')) {
+      this.AllRegEx.shortPasswords.regex.some((pattern) => {
+        if (!(password?.match(pattern)) && (password != '')) {
           this.passwordFormControl.setErrors({ 'short': true })
           this.strengthLvl = -1
         }
