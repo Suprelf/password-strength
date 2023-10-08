@@ -14,7 +14,6 @@ export class StrengthFieldComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes['strength'].currentValue)
     this.strength = changes['strength'].currentValue
   }
 

@@ -36,12 +36,12 @@ export class PasswordFieldComponent implements OnInit {
         RegExp(/^[A-Za-z0-9а-яА-Я]*$/gm)],
       lvl: 2
     },
-    strongPasswords: { 
-      regex: [RegExp(/^[A-Za-z0-9а-яА-Я$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm)], 
-      lvl: 3 
+    strongPasswords: {
+      regex: [RegExp(/^[A-Za-z0-9а-яА-Я$&+,:`;=?@#|\\/\[|\]'<>.^*()%!_-]*$/gm)],
+      lvl: 3
     },
-    shortPasswords:{ 
-      regex:[RegExp(/^.{8,}$/)],
+    shortPasswords: {
+      regex: [RegExp(/^.{8,}$/)],
       lvl: -1
     }
   }
